@@ -22,12 +22,30 @@
 
 > 关于攻速：游戏内 **冷却（Cooldown）越小 = 射速越快**。把冷却调小即加攻速。
 
-## 安装
+## 安装与使用
 
-1. 安装 [Godot Mod Loader](https://github.com/GodotModding/godot-mod-loader)（需对应 Brotato 的版本）。
-2. Steam 库中右键《土豆兄弟》→ 属性 → 启动选项，填入 `--enable-mods`。
-3. 下载 [Liangzi-WeaponTunerV12.zip](https://github.com/LIANG04041/Brotato-WeaponTuner/releases/download/v12.0/Liangzi-WeaponTunerV12.zip)，放到 Mod Loader 的 mods 目录（或游戏社区的创意工坊加载目录），在游戏 Mod 菜单中启用。
-4. 进入一局游戏（主菜单没有 player 实例，面板只在对局内出现），点左下角【武器调试】按钮即可。
+### 前置条件
+
+- 游戏为《土豆兄弟》0.8 及以上版本。游戏**已内置** Mod Loader，玩家**不需要另外下载安装** Godot Mod Loader。
+- 开启 Mod 支持：Steam 库中右键《土豆兄弟》→ 属性 → 通用 → 启动选项，填入 `--enable-mods`。
+
+### 安装
+
+1. 下载 [Liangzi-WeaponTunerV12.zip](https://github.com/LIANG04041/Brotato-WeaponTuner/releases/download/v12.0/Liangzi-WeaponTunerV12.zip)。
+2. 把 zip **原样放入**游戏的 Mod 加载目录（Steam 创意工坊 Mod 的 content 目录，或 Mod Loader 的 mods 目录），**不要解压**。
+3. 启动游戏，在主菜单的 **Mod** 菜单里找到本 Mod 并勾选启用；个别情况需重启游戏才生效。
+4. 建议启用前备份存档：复制 `%APPDATA%/Brotato` 文件夹。
+
+### 怎么用
+
+1. **进入一局游戏**——主菜单没有玩家实例，面板只在对局内出现。
+2. 点屏幕**左下角的【武器调试】按钮**打开面板；打开时游戏会**自动暂停**，方便从容调整。
+3. 在面板里改数值：
+   - **角色**：生命上限、攻击力、移动速度、护甲、闪避；
+   - **武器**：伤害、冷却（**冷却越小 = 射速越快**）、命中、暴击、射程等，按当前武器实际拥有的字段自动列出；
+   - 点每行 **`+` / `-`** 按步长增减，或点数字输入框**直接输入数字后按回车**。
+4. 点【关闭】或再点一次左下角按钮，游戏**恢复运行，修改随即生效**。
+5. 修改会**自动存档**：换局、死亡重开、重启游戏后都保持，不用反复改。想恢复游戏默认数值，点标题栏的【清档】按钮（同时会删除存档文件）。
 
 ## 从源码打包
 
