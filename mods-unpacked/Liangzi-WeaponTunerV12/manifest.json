@@ -1,0 +1,28 @@
+{
+    "name": "WeaponTunerV12",
+    "namespace": "Liangzi",
+    "version_number": "1.0.0",
+    "description": "游戏内调试面板。点击左下角【武器调试】按钮打开（自动暂停游戏），用 +/- 按钮或直接输入数字修改角色与所持武器的每一项数值（伤害、冷却、暴击、射程等），关闭面板后恢复游戏、数值生效。所有修改写入存档，换局/重开/重启游戏后自动保持，无需反复修改；面板的【清档】按钮可恢复默认。",
+    "website_url": "",
+    "dependencies": [],
+    "extra": {
+        "godot": {
+            "authors": [
+                "Liangzi"
+            ],
+            "tags": [
+                "cheats",
+                "utilities"
+            ],
+            "description_rich": "",
+            "optional_dependencies": [],
+            "load_before": [],
+            "incompatibilities": [],
+            "compatible_mod_loader_version": [
+                "6.0.0",
+                "6.1.0"
+            ],
+            "config_schema": {}
+        }
+    }
+}
