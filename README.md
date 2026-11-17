@@ -4,6 +4,12 @@
 
 > 基于 Godot Mod Loader 6.x，支持 Godot 3 版游戏。当前版本：**V12**。
 
+## 下载
+
+**最新版本 V12**：[Liangzi-WeaponTunerV12.zip](https://github.com/LIANG04041/Brotato-WeaponTuner/releases/download/v12.0/Liangzi-WeaponTunerV12.zip)
+
+也可到 [Releases 页面](https://github.com/LIANG04041/Brotato-WeaponTuner/releases) 查看全部版本。
+
 ## 功能特性
 
 - **全中文界面**：字段、按钮、日志均为中文，使用游戏自带中文字体，无乱码方块。
@@ -20,7 +26,7 @@
 
 1. 安装 [Godot Mod Loader](https://github.com/GodotModding/godot-mod-loader)（需对应 Brotato 的版本）。
 2. Steam 库中右键《土豆兄弟》→ 属性 → 启动选项，填入 `--enable-mods`。
-3. 从 [Releases](../../releases) 下载 `Liangzi-WeaponTunerV12.zip`，放到 Mod Loader 的 mods 目录（或游戏社区的创意工坊加载目录），在游戏 Mod 菜单中启用。
+3. 下载 [Liangzi-WeaponTunerV12.zip](https://github.com/LIANG04041/Brotato-WeaponTuner/releases/download/v12.0/Liangzi-WeaponTunerV12.zip)，放到 Mod Loader 的 mods 目录（或游戏社区的创意工坊加载目录），在游戏 Mod 菜单中启用。
 4. 进入一局游戏（主菜单没有 player 实例，面板只在对局内出现），点左下角【武器调试】按钮即可。
 
 ## 从源码打包
