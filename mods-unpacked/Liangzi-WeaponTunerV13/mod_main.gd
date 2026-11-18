@@ -2,8 +2,8 @@ extends Node
 ## 武器调试入口脚本
 ## 由 Godot Mod Loader 在启动阶段调用 _init()，安装脚本扩展。
 
-const MOD_DIR := "Liangzi-WeaponTunerV12"
-const LOG_NAME := "Liangzi-WeaponTunerV12:Main"
+const MOD_DIR := "Liangzi-WeaponTunerV13"
+const LOG_NAME := "Liangzi-WeaponTunerV13:Main"
 
 var mod_dir_path := ""
 

@@ -3,7 +3,7 @@ extends "res://entities/units/player/player.gd"
 ## 提供一个独立调试面板，用鼠标 +/- 或输入数字实时修改角色与当前持有武器的每一项数值。
 ## 不扩展 weapon.gd 基类，避免破坏其字节码子类的符号表。
 
-const WT_PANEL_SCRIPT := "res://mods-unpacked/Liangzi-WeaponTunerV12/debug_panel.gd"
+const WT_PANEL_SCRIPT := "res://mods-unpacked/Liangzi-WeaponTunerV13/debug_panel.gd"
 
 var _wt_panel = null
 var _wt_toggle_btn: Button = null
@@ -66,9 +66,9 @@ func _wt_setup_ui() -> void:
 			_wt_panel.setup(self)
 		_wt_panel.hide_panel()
 		_wt_toggle_btn.connect("pressed", self, "_wt_on_toggle")
-		ModLoaderLog.info("界面就绪：开关按钮与面板已创建", "Liangzi-WeaponTunerV12:Main")
+		ModLoaderLog.info("界面就绪：开关按钮与面板已创建", "Liangzi-WeaponTunerV13:Main")
 	else:
-		ModLoaderLog.info("错误：面板脚本加载失败", "Liangzi-WeaponTunerV12:Main")
+		ModLoaderLog.info("错误：面板脚本加载失败", "Liangzi-WeaponTunerV13:Main")
 
 
 func _wt_on_toggle() -> void:
@@ -99,4 +99,4 @@ func update_player_stats(reset_current_health := false) -> void:
 			_wt_panel.reapply_after_recalc()
 			if not _wt_recalc_logged:
 				_wt_recalc_logged = true
-				ModLoaderLog.info("跨波保护已激活：游戏重算数值后会自动盖回你的修改", "Liangzi-WeaponTunerV12:Main")
+				ModLoaderLog.info("跨波保护已激活：游戏重算数值后会自动盖回你的修改", "Liangzi-WeaponTunerV13:Main")

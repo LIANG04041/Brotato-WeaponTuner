@@ -1,6 +1,7 @@
 extends Control
-## 武器调试面板（V12：数值写入存档，跨局持续保存）
+## 武器调试面板（V13：新增自选波数跳转）
 ## 独立窗口，用鼠标点击 +/- 或直接输入数字，实时修改角色与当前持有武器的每一项数值。
+## V13 新增：面板顶部【波数】输入框 + 【跳转】按钮，直接跳到指定波数。
 ##
 ## 核心机制：所有修改都记录到 override 字典，并应用到"当前活着"的对象上。
 ##   - 存档持久化：每次修改立即写入 user:// 存档文件（游戏存档同目录），
@@ -32,7 +33,7 @@ var _weapon_sig: String = ""   # 当前武器实例签名，变化时重建
 var _ui_font = null
 
 const FONT_PATH := "res://resources/fonts/actual/base/font_22.tres"
-const LOG_NAME := "Liangzi-WeaponTunerV12:Panel"
+const LOG_NAME := "Liangzi-WeaponTunerV13:Panel"
 ## 数值存档：user:// 对应 %APPDATA%/Brotato/（与游戏存档、mod 配置同目录）
 const SAVE_PATH := "user://liangzi_weapon_tuner_save.json"
 
@@ -48,6 +49,10 @@ var _weapon_overrides := {}
 var _editing_info = null
 # 暂停控制：记录本面板是否接管了暂停，避免误解除游戏自身的暂停
 var _pause_owned: bool = false
+
+# 波数跳转控件（V13）
+var _wave_edit: LineEdit = null
+var _wave_label: Label = null
 
 # 角色 LiveStats 字段
 const PLAYER_STATS := [
@@ -200,6 +205,31 @@ func _build_ui() -> void:
 	_apply_font(close_btn)
 	close_btn.connect("pressed", self, "hide_panel")
 	header.add_child(close_btn)
+
+	# ---- 波数控制行（V13）----
+	var wave_row := HBoxContainer.new()
+	wave_row.rect_min_size = Vector2(0, 30)
+	vb.add_child(wave_row)
+
+	_wave_label = Label.new()
+	_wave_label.text = "跳到第几波："
+	_wave_label.rect_min_size = Vector2(90, 24)
+	_apply_font(_wave_label)
+	wave_row.add_child(_wave_label)
+
+	_wave_edit = LineEdit.new()
+	_wave_edit.rect_min_size = Vector2(60, 24)
+	_wave_edit.align = 1 # ALIGN_CENTER
+	_wave_edit.placeholder_text = "下一波"
+	_apply_font(_wave_edit)
+	wave_row.add_child(_wave_edit)
+
+	var go_btn := Button.new()
+	go_btn.text = "跳转"
+	go_btn.rect_min_size = Vector2(50, 24)
+	_apply_font(go_btn)
+	go_btn.connect("pressed", self, "_on_goto_wave")
+	wave_row.add_child(go_btn)
 
 	_scroll = ScrollContainer.new()
 	_scroll.size_flags_vertical = ScrollContainer.SIZE_EXPAND_FILL
@@ -656,6 +686,56 @@ func toggle_panel() -> void:
 		hide_panel()
 	else:
 		show_panel()
+
+
+## 跳到指定波数（V13）。复用游戏自带调试菜单的做法：
+##   RunData.current_wave = 目标波数；若波次进行中则重载当前场景使其立即生效。
+func _on_goto_wave() -> void:
+	var run_data = get_node_or_null("/root/RunData")
+	if run_data == null:
+		ModLoaderLog.info("跳波失败：找不到 RunData 单例", LOG_NAME)
+		return
+
+	# 读取目标波数，留空则默认"下一波"
+	var target_wave: int = -1
+	if _wave_edit != null and is_instance_valid(_wave_edit):
+		var txt = str(_wave_edit.text).strip_edges()
+		if txt != "" and txt.is_valid_integer():
+			target_wave = int(txt)
+	if target_wave < 1:
+		# 用游戏自身的 get_next_wave()，与商店按钮显示保持一致
+		if run_data.has_method("get_next_wave"):
+			target_wave = int(run_data.call("get_next_wave"))
+		else:
+			target_wave = int(run_data.get("current_wave")) + 1
+
+	# 先恢复游戏（解除本面板的暂停），否则暂停状态下场景不会刷新
+	if _pause_owned:
+		var tree = get_tree()
+		if tree != null and tree.paused:
+			tree.paused = false
+		_pause_owned = false
+	_visible = false
+	visible = false
+
+	run_data.set("current_wave", target_wave)
+	ModLoaderLog.info("跳波：current_wave 设为 %d" % target_wave, LOG_NAME)
+
+	var tree2 = get_tree()
+	if tree2 != null:
+		if bool(run_data.get("wave_in_progress")):
+			# 战斗中：重载场景，让新波数立即生效（游戏自带 debug_menu 同款做法）
+			tree2.reload_current_scene()
+			ModLoaderLog.info("跳波：波次进行中，已重载场景进入第 %d 波" % target_wave, LOG_NAME)
+		else:
+			# 非战斗（商店等）：切换回游戏场景开始该波
+			var menu_data = get_node_or_null("/root/MenuData")
+			var game_scene = menu_data.get("game_scene") if menu_data != null else null
+			if game_scene != null:
+				tree2.change_scene(game_scene)
+				ModLoaderLog.info("跳波：已切换到游戏场景，进入第 %d 波" % target_wave, LOG_NAME)
+			else:
+				ModLoaderLog.info("跳波：current_wave 已设为 %d（进入下一波时生效）" % target_wave, LOG_NAME)
 
 
 ## 每帧：持续重新应用 override（即使面板隐藏也生效）+ 检测武器变化 + 刷新显示
