@@ -28,8 +28,23 @@ func _wt15_player_index() -> int:
 	return 0
 
 
-func _wt15_open_editor() -> void:
+func _wt15_get_hub():
 	var hub = get_node_or_null("/root/WT15Hub")
+	if hub != null:
+		return hub
+	var store = get_node_or_null("/root/ModLoaderStore")
+	if store != null:
+		hub = store.get_node_or_null("WT15Hub")
+		if hub != null:
+			return hub
+	var arr = get_tree().get_nodes_in_group("wt15_hub")
+	if arr.size() > 0:
+		return arr[0]
+	return null
+
+
+func _wt15_open_editor() -> void:
+	var hub = _wt15_get_hub()
 	if hub == null:
 		ModLoaderLog.info("编辑中枢未就绪", "Liangzi-WeaponTunerV15:Stat")
 		return

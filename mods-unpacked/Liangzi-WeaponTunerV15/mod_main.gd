@@ -32,11 +32,20 @@ func _ensure_hub() -> void:
 		return
 	if get_node_or_null("/root/" + HUB_NAME) != null:
 		return
+	var store = get_node_or_null("/root/ModLoaderStore")
+	if store != null and store.get_node_or_null(HUB_NAME) != null:
+		return
 	var hub_script = load(mod_dir_path.plus_file("editor_hub.gd"))
 	if hub_script == null:
 		ModLoaderLog.info("错误：编辑中枢脚本加载失败", LOG_NAME)
 		return
 	var hub = hub_script.new()
 	hub.name = HUB_NAME
-	get_tree().root.add_child(hub)
-	ModLoaderLog.info("编辑中枢已创建", LOG_NAME)
+	# 挂在 ModLoader 常驻单例下，场景切换不会被清掉
+	var host = get_node_or_null("/root/ModLoaderStore")
+	if host != null:
+		host.add_child(hub)
+	else:
+		get_tree().root.add_child(hub)
+	hub.add_to_group("wt15_hub")
+	ModLoaderLog.info("编辑中枢已创建：%s" % str(hub.get_path()), LOG_NAME)

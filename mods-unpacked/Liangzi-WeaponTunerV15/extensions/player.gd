@@ -20,6 +20,14 @@ func _ready() -> void:
 
 func wt15_register_to_hub() -> void:
 	var hub = get_node_or_null("/root/WT15Hub")
+	if hub == null:
+		var store = get_node_or_null("/root/ModLoaderStore")
+		if store != null:
+			hub = store.get_node_or_null("WT15Hub")
+	if hub == null:
+		var arr = get_tree().get_nodes_in_group("wt15_hub")
+		if arr.size() > 0:
+			hub = arr[0]
 	if hub != null:
 		hub.player = self
 
