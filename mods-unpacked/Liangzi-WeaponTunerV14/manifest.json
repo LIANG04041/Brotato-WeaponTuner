@@ -1,0 +1,28 @@
+{
+    "name": "WeaponTunerV14",
+    "namespace": "Liangzi",
+    "version_number": "1.0.0",
+    "description": "游戏内数值调整面板。点击左下角【武器调整】按钮打开（自动暂停游戏）。攻击速度为倍率语义：数值越大攻速越快（1~500 倍）；可修改角色与当前武器的各项数值，也可展开“原始数值”修改武器基础属性。所有修改写入存档，换局/重开/重启游戏后自动保持；面板顶部可跳到指定波数，【清档】可恢复默认。",
+    "website_url": "",
+    "dependencies": [],
+    "extra": {
+        "godot": {
+            "authors": [
+                "Liangzi"
+            ],
+            "tags": [
+                "cheats",
+                "utilities"
+            ],
+            "description_rich": "",
+            "optional_dependencies": [],
+            "load_before": [],
+            "incompatibilities": [],
+            "compatible_mod_loader_version": [
+                "6.0.0",
+                "6.1.0"
+            ],
+            "config_schema": {}
+        }
+    }
+}
