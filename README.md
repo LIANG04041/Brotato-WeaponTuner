@@ -1,33 +1,32 @@
-# Brotato 武器数值调整面板 Mod（WeaponTuner）
+# Brotato 数值调整 Mod（WeaponTuner）
 
-《土豆兄弟 / Brotato》游戏内数值调整面板。左下角按钮打开**全中文、游戏同款风格**的面板，用鼠标 `+ / -` 或输入数字，实时修改角色和当前武器数值，还能修改武器**原始数值**、一键跳波。
+《土豆兄弟 / Brotato》游戏内数值调整。**打开游戏自带的【属性】面板，鼠标点任意一行的数值就能直接改**；另有左下角【武器调整】完整面板，可改角色、武器、武器原始数值，并支持自选波数跳转。
 
-> 基于游戏内置 Godot Mod Loader 6.x。当前版本：**V14**。
+> 基于游戏内置 Godot Mod Loader 6.x。当前版本：**V15**。
 
 ## 下载
 
-**最新版本 V14**：[Liangzi-WeaponTunerV14.zip](https://github.com/LIANG04041/Brotato-WeaponTuner/releases/download/v14.0/Liangzi-WeaponTunerV14.zip)
+**最新版本 V15**：[Liangzi-WeaponTunerV15.zip](https://github.com/LIANG04041/Brotato-WeaponTuner/releases/download/v15.0/Liangzi-WeaponTunerV15.zip)
 
 全部版本见 [Releases 页面](https://github.com/LIANG04041/Brotato-WeaponTuner/releases)。
 
-## V14 新变化
+## V15 新变化
 
-1. **攻击速度改为倍率语义**：面板里显示的是「攻击速度」，`1` 倍为原速，`2` 倍快一倍，最大 `500` 倍，按一次 `+ / -` 改 `1` 倍。游戏内部使用的冷却帧会自动换算（`冷却 = 原始冷却 ÷ 攻速倍率`），不用再理解“冷却越小越快”。
-2. **新增「原始数值」区**：可修改武器基础属性（原始冷却、原始伤害、原始暴击、原始弹丸数等），改完对同类武器生效，并随存档跨局保持。点面板上的【原始数值：显示/隐藏】按钮切换。
-3. **UI 换成游戏同款**：半透明黑底、白色文字、米黄强调色、黑底描边按钮，与《土豆兄弟》菜单风格一致。标题下方还会显示当前武器的**攻速与伤害倍率摘要**。
+1. **原生属性面板直接改**：按游戏原本的方式打开【属性】面板（主要 / 次要两页），把鼠标移到任意一行的数值上，数值会变成可点击状态，**点一下就弹出输入框**，输入新数字回车即可。不用再开独立调试窗口。
+2. 改动直接写入游戏自己的属性数据（`RunData` 的 `effects`），所以改完**立即生效**，面板数字同步刷新，升级/买东西后也按新数值继续算。
+3. 左下角【武器调整】完整面板保留，V14 的攻速倍率、原始数值、游戏同款 UI、跨局存档、跳波全部照旧可用。
 
 ## 功能特性
 
+- **属性面板原地编辑**：主要页（最大生命值、%伤害、%攻击速度、护甲、闪避…）与次要页（生命再生、%生命窃取、近战/远程/元素伤害、工程学、范围、幸运、收获…）每一行都可点数值修改。
 - **全中文界面**：字段、按钮、日志均为中文，使用游戏自带中文字体。
 - **角色数值**：生命上限、攻击力、移动速度、护甲、闪避（生命只改上限，不锁实时血）。
 - **武器当前数值**：攻击速度（倍率）、伤害、命中、暴击率、暴击伤害、射程、击退、吸血、弹丸数、穿透、弹射、弹速、散布等，按武器实际字段自动列出。
 - **武器原始数值**：直接改武器基础 Resource，影响后续重新初始化/同类武器。
 - **自选波数跳转**：面板顶部输入波数即可跳到该波，留空跳下一波。
-- **自动存档**：修改立即写入 `%APPDATA%/Brotato/liangzi_weapon_tuner_save.json`，换局、重开、重启游戏后保持。【清档】恢复默认。
+- **自动存档**：完整面板的修改立即写入 `%APPDATA%/Brotato/liangzi_weapon_tuner_save.json`，换局、重开、重启游戏后保持。【清档】恢复默认。
 - **跨波不重置**：hook 游戏自身的 `update_player_stats()`，每波/拾道具/升级重算后立即盖回修改。
-- **打开自动暂停**：打开面板暂停游戏，关闭后恢复、修改生效。
-- **武器升级自动跟随**：升级/合成换新实例时按 `weapon_id` 动态匹配，改值不失效。
-- **兼容 V13 存档**：旧存档里的“冷却”覆盖会自动折算成新的攻速倍率。
+- **打开自动暂停**：打开完整面板暂停游戏，关闭后恢复、修改生效。
 
 ## 安装与使用
 
@@ -38,33 +37,46 @@
 
 ### 安装
 
-1. 下载 [Liangzi-WeaponTunerV14.zip](https://github.com/LIANG04041/Brotato-WeaponTuner/releases/download/v14.0/Liangzi-WeaponTunerV14.zip)。
+1. 下载 [Liangzi-WeaponTunerV15.zip](https://github.com/LIANG04041/Brotato-WeaponTuner/releases/download/v15.0/Liangzi-WeaponTunerV15.zip)。
 2. 把 zip **原样放入**游戏的 Mod 加载目录（Steam 创意工坊 Mod 的 content 目录，或 Mod Loader mods 目录），**不要解压**。
 3. 启动游戏，在主菜单 **Mod** 菜单里启用本 Mod；个别情况需重启游戏。
-4. 建议启用前备份存档：复制 `%APPDATA%/Brotato` 文件夹。
+4. **同一个 Mod 只保留一个版本**：如果之前装过 V13/V14，请把旧 zip 移出加载目录，否则新旧版本会同时挂载、互相冲突。
+5. 建议启用前备份存档：复制 `%APPDATA%/Brotato` 文件夹。
 
-### 怎么用
+### 怎么用（两种方式）
 
-1. **进入一局游戏**——主菜单没有玩家实例，面板只在对局内出现。
-2. 点**左下角【武器调整】按钮**打开面板，游戏会自动暂停。
-3. 调整数值：
+**方式一：原生属性面板直接改（V15 新增）**
+
+1. 进入一局游戏，按游戏原本的方式打开【属性】面板。
+2. 切到【主要】或【次要】页。
+3. 把鼠标移到某一行**右侧的数值**上，光标会变成手型。
+4. **左键点一下**，弹出「修改：XXX」小窗口，里面已经填好当前值。
+5. 输入想要的数字，按 **回车** 或点【确定】。
+6. 数字立刻变成你填的值，属性即时生效。
+
+> 说明：游戏里其它加成（道具、临时效果）仍会继续叠加，所以改完后再吃加成，数值会在此基础上变化。想改回原值就再点一次输入原数字。
+
+**方式二：左下角【武器调整】完整面板**
+
+1. 点**左下角【武器调整】按钮**打开面板，游戏会自动暂停。
+2. 调整数值：
    - **角色**：生命上限、攻击力、移动速度、护甲、闪避；
    - **武器当前数值**：`攻击速度(越大越快)` 填 `2` 即两倍速，`1` 为原速；其它字段照常改；
    - **原始数值**：点【原始数值：显示】展开，改原始冷却/原始伤害等；
    - 点每行 `+ / -` 按步长增减，或点输入框直接输入数字后回车。
-4. **跳波**：顶部【跳到第几波】填波数（如 `15`）点【跳转】；留空则进入下一波。
-5. 点【关闭】或再点左下角按钮，游戏恢复、修改生效。
-6. 修改会自动存档，不用反复改；点【清档】可恢复默认。
+3. **跳波**：顶部【跳到第几波】填波数（如 `15`）点【跳转】；留空则进入下一波。
+4. 点【关闭】或再点左下角按钮，游戏恢复、修改生效。
+5. 修改会自动存档，不用反复改；点【清档】可恢复默认。
 
 ## 从源码打包
 
-仓库中 `mods-unpacked/Liangzi-WeaponTunerV14/` 是 Mod 源码。zip 内必须保留 `mods-unpacked/Liangzi-WeaponTunerV14/` 这一层路径：
+仓库中 `mods-unpacked/Liangzi-WeaponTunerV15/` 是 Mod 源码。zip 内必须保留 `mods-unpacked/Liangzi-WeaponTunerV15/` 这一层路径：
 
 ```bash
 python -c "
 import zipfile, os
-src = 'mods-unpacked/Liangzi-WeaponTunerV14'
-with zipfile.ZipFile('Liangzi-WeaponTunerV14.zip','w',zipfile.ZIP_DEFLATED) as z:
+src = 'mods-unpacked/Liangzi-WeaponTunerV15'
+with zipfile.ZipFile('Liangzi-WeaponTunerV15.zip','w',zipfile.ZIP_DEFLATED) as z:
     for root, _, files in os.walk(src):
         for f in files:
             p = os.path.join(root, f)
@@ -75,14 +87,17 @@ with zipfile.ZipFile('Liangzi-WeaponTunerV14.zip','w',zipfile.ZIP_DEFLATED) as z
 ## 文件结构
 
 ```
-mods-unpacked/Liangzi-WeaponTunerV14/
-├── manifest.json          # Mod 元数据
-├── mod_main.gd            # 入口：安装 script extension
-├── debug_panel.gd         # 面板：UI、override、原始数值、存档、跳波
+mods-unpacked/Liangzi-WeaponTunerV15/
+├── manifest.json                     # Mod 元数据
+├── mod_main.gd                       # 入口：安装 3 个 script extension + 创建编辑中枢
+├── editor_hub.gd                     # 属性修改弹窗：写 effects、清缓存、刷新面板
+├── debug_panel.gd                    # 完整面板：UI、override、原始数值、存档、跳波
 └── extensions/
-    └── player.gd          # 唯一注入点：创建 UI + hook 数值重算
+    ├── player.gd                     # 创建左下角按钮与完整面板 + hook 数值重算
+    ├── stat_container.gd             # 「属性-主要」每行数值可点击
+    └── secondary_stat_container.gd   # 「属性-次要」每行数值可点击
 releases/
-└── Liangzi-WeaponTunerV14.zip   # 可直接安装的打包文件
+└── Liangzi-WeaponTunerV15.zip        # 可直接安装的打包文件
 ```
 
 ## 卸载
@@ -91,11 +106,11 @@ releases/
 
 ## 技术说明
 
-- 唯一注入点是 `player.gd`；刻意不扩展 `weapon.gd`（其 `.gdc` 字节码子类符号表脆弱）。
-- 攻击速度是派生值：不改游戏字段语义，只把倍率换算成 `current_stats.cooldown`，因此与游戏自身的 `attack_speed_mod`、`additional_cooldown_multiplier` 等机制共存。
-- 原始数值直接写 `weapon.stats`（Resource），游戏 `init_stats()` 时会基于它重新生成 `current_stats`。
+- 属性面板的数值来源是 `RunData.get_player_stat` → `players_data[idx].effects[key_hash] * gain`；V15 直接写 `effects`，再 `Utils.reset_stat_caches()` 清缓存、调用 `player.update_player_stats()` 重算，最后刷新 `StatsContainer`。
+- 完整面板仍只注入 `player.gd`，刻意不扩展 `weapon.gd`（其 `.gdc` 字节码子类符号表脆弱）。
+- 攻击速度是派生值：不改游戏字段语义，只把倍率换算成 `current_stats.cooldown`。
 - 跳波复用游戏自带调试菜单做法：`RunData.current_wave` + `reload_current_scene()` / `change_scene(MenuData.game_scene)`。
-- 存档用 Godot 3 的 `JSON.parse` / `JSON.print` + `user://` 路径；V14 增加 `base_weapons` 段保存原始数值。
+- 所有新增成员统一带 `wt15_` 前缀，`CanvasLayer` 命名为 `WTuner15Canvas` / `WT15EditorLayer`，避免与其它扩展同一脚本的 Mod 撞名。
 
 ## 许可
 
